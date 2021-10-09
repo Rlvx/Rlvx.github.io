@@ -1,1 +1,25 @@
 theme: jekyll-theme-cayman
+
+# Site wide configuration
+
+title: WriteUps
+locale: fr_FR
+
+# Enter the following platform usernames if you would like for them to appear on your site.
+owner:
+  name: Romain Leveaux
+  avatar: #avatar
+  bio: "I like crypto"
+  email: romain.4212@gmail.com
+  # Do not include the @ symbol in your Twitter username
+  twitter: #
+  linkedin: #username
+  github: Rlvx
+  orcid: # ID Number (ex. 0000-0000-0000-0000)
+  researchgate: #username
+  mendeley: #username
+  google:
+    plus: #username
+    analytics:
+    verify:
+    scholar: #id
