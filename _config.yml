@@ -3,14 +3,14 @@ site_name: CTF Docs
 theme:
   name: material
   features:
-      - navigation.instant
-      - navigation.tabs
-      - navigation.top
-    palette:
-      - scheme: default
-        primary: black
-        accent: red
-      - scheme: slate
-        primary: black
-        accent: red
+    - navigation.instant
+    - navigation.tabs
+    - navigation.top
+  palette:
+    - scheme: default
+      primary: black
+      accent: red
+    - scheme: slate
+      primary: black
+      accent: red
     
