@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mod 26 WriteUp</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="writup-de-mod-26---picoctf">Writup de Mod 26 - PicoCTF</h1>
+<h3 id="description-initiale-">Description initiale :</h3>
+<p>Cryptography can be easy, do you know what ROT13 is? <code>cvpbPGS{arkg_gvzr_V'yy_gel_2_ebhaqf_bs_ebg13_hyLicInt}</code></p>
+<h3 id="explications">Explications</h3>
+<p>Challenge typique en cryptographie, le ROT ou Cesar. Ici il s’agit d’un ROT13 donc toutes les lettres du flag sont décalé de 13. autrement dis, un <code>A</code> devient un <code>N</code> un <code>B</code> un <code>O</code> etc…</p>
+<p>des sites propose de faire des décrytage de Cesar mais je vais plutôt faire mon propre code python.</p>
+<h3 id="code-python">Code python</h3>
+<pre class=" language-py"><code class="prism  language-py"><span class="token keyword">def</span> <span class="token function">cesar</span><span class="token punctuation">(</span>text<span class="token punctuation">,</span> rot<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    result <span class="token operator">=</span> <span class="token string">""</span>
+    <span class="token keyword">for</span> char <span class="token keyword">in</span> text<span class="token punctuation">:</span>
+        <span class="token keyword">if</span> char<span class="token punctuation">.</span>isupper<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            result <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>char<span class="token punctuation">)</span> <span class="token operator">+</span> rot <span class="token operator">-</span> <span class="token number">65</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">26</span> <span class="token operator">+</span> <span class="token number">65</span><span class="token punctuation">)</span>
+        <span class="token keyword">elif</span> char<span class="token punctuation">.</span>islower<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+            result <span class="token operator">+=</span> <span class="token builtin">chr</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token builtin">ord</span><span class="token punctuation">(</span>char<span class="token punctuation">)</span> <span class="token operator">+</span> rot <span class="token operator">-</span> <span class="token number">97</span><span class="token punctuation">)</span> <span class="token operator">%</span> <span class="token number">26</span> <span class="token operator">+</span> <span class="token number">97</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            result <span class="token operator">+=</span> char
+    <span class="token keyword">return</span> result
+</code></pre>
+<p>la fonction cesar demande 2 arguments :</p>
+<ul>
+<li>le texte à chiffrer/déchiffrer</li>
+<li>la clé de décallage</li>
+</ul>
+<h3 id="résolution">Résolution</h3>
+<p>ici la clé est donné dans l’énoncé (ROT<strong>13</strong>), je lance mon programme avec comme paramètre <code>cvpbPGS{arkg_gvzr_V'yy_gel_2_ebhaqf_bs_ebg13_hyLicInt}</code> et <code>13</code> :</p>
+<pre class=" language-py"><code class="prism  language-py"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> cesar<span class="token punctuation">(</span><span class="token string">"cvpbPGS{arkg_gvzr_V'yy_gel_2_ebhaqf_bs_ebg13_hyLicInt}"</span><span class="token punctuation">,</span><span class="token number">13</span><span class="token punctuation">)</span>
+<span class="token string">"picoCTF{next_time_I'll_try_2_rounds_of_rot13_ulYvpVag}"</span>
+<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> 
+</code></pre>
+<p>Flag : <code>picoCTF{next_time_I'll_try_2_rounds_of_rot13_ulYvpVag}</code></p>
+<p>Auteur : SoMadd#8216</p>
+</div>
+</body>
+
+</html>
