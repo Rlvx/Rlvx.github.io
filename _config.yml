@@ -1,18 +1,1 @@
-site_name: CTF Docs
-theme:
-  name: material
-  favicon: #assets/img/favicon.ico
-  logo: #assets/img/favicon.ico
-  icon:
-    repo: #fontawesome/brands/gitlab
-  features:
-    - navigation.instant
-    - navigation.tabs
-    - navigation.top
-  palette:
-    - scheme: default
-      primary: black
-      accent: red
-    - scheme: slate
-      primary: black
-      accent: red
+
