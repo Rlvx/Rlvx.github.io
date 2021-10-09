@@ -1,29 +1,18 @@
-theme: jekyll-theme-cayman
+site_name: CTF Docs
+theme:
+  name: material
+  favicon: #assets/img/favicon.ico
+  logo: #assets/img/favicon.ico
+  icon:
+    repo: #fontawesome/brands/gitlab
   features:
     - navigation.instant
     - navigation.tabs
     - navigation.top
-
-# Site wide configuration
-
-title: WriteUps
-locale: fr_FR
-
-# Enter the following platform usernames if you would like for them to appear on your site.
-owner:
-  name: Romain Leveaux
-  avatar: #avatar
-  bio: "I like crypto"
-  email: romain.4212@gmail.com
-  # Do not include the @ symbol in your Twitter username
-  twitter: #
-  linkedin: #username
-  github: Rlvx
-  orcid: # ID Number (ex. 0000-0000-0000-0000)
-  researchgate: #username
-  mendeley: #username
-  google:
-    plus: #username
-    analytics:
-    verify:
-    scholar: #id
+  palette:
+    - scheme: default
+      primary: black
+      accent: red
+    - scheme: slate
+      primary: black
+      accent: red
