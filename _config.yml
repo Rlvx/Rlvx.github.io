@@ -1,4 +1,8 @@
 theme: jekyll-theme-cayman
+  features:
+    - navigation.instant
+    - navigation.tabs
+    - navigation.top
 
 # Site wide configuration
 
