@@ -1,4 +1,4 @@
-## SoMadd's WriteUp
+## PépèreTheFlag WriteUp
 
 ### PicoCTF - Cryptography
 
