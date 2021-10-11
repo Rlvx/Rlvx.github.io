@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Numbers WriteUp</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="writup-de-double-des---picoctf">Writup de Double DES - PicoCTF</h1>
+<h3 id="description-initiale-">Description initiale :</h3>
+<p>The <a href="https://jupiter.challenges.picoctf.org/static/f209a32253affb6f547a585649ba4fda/the_numbers.png">numbers</a>… what do they mean?</p>
+<h3 id="image--numbers">Image  <a href="https://jupiter.challenges.picoctf.org/static/f209a32253affb6f547a585649ba4fda/the_numbers.png">numbers</a></h3>
+<p><img src="https://jupiter.challenges.picoctf.org/static/f209a32253affb6f547a585649ba4fda/the_numbers.png" alt="enter image description here"></p>
+<h3 id="explications">Explications</h3>
+<p>chaque nombre correspond au numero d’une lettre dans l’alphabet</p>
+<blockquote>
+<p>1 = A<br>
+2 = B<br>
+…</p>
+</blockquote>
+<p>pour déchiffrer ce message rien de très compliqué. Il est possible de résoudre ce challenge à la main mais je préfère coder un code python qui déchiffre ça automatiquement.</p>
+<h3 id="code-python">Code python</h3>
+<pre class=" language-py"><code class="prism  language-py"><span class="token keyword">def</span> <span class="token function">thenumbers_decrypt</span><span class="token punctuation">(</span>text<span class="token punctuation">)</span><span class="token punctuation">:</span>  
+  alphabet <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token string">"abcdefghijklmnopqrstuvwxyz"</span><span class="token punctuation">)</span>  
+  <span class="token builtin">buffer</span><span class="token operator">=</span><span class="token string">""</span>  
+  <span class="token keyword">for</span> values <span class="token keyword">in</span> text<span class="token punctuation">.</span>split<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  
+	  <span class="token keyword">if</span> <span class="token builtin">str</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token punctuation">.</span>isnumeric<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>  
+	  <span class="token builtin">buffer</span><span class="token operator">+=</span>alphabet<span class="token punctuation">[</span><span class="token builtin">int</span><span class="token punctuation">(</span>values<span class="token punctuation">)</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">]</span>  
+  <span class="token keyword">else</span><span class="token punctuation">:</span>  
+	  <span class="token builtin">buffer</span><span class="token operator">+=</span>values  
+  <span class="token keyword">return</span> <span class="token builtin">buffer</span>
+</code></pre>
+<p>fonction très simple qui va split le texte à chaque espace pour récuperer chaque packets de charactères (ici les nombres), si c’est un nombre j’affiche sa lettre associé, (le <code>-1</code> dans <code>alphabet[int(values)-1]</code> est du au fait que la lettre A est à l’index 0 de la liste, donc tout est décalé de -1 (<code>A=0</code>,<code>B=1</code>…)</p>
+<h3 id="exectution-du-programme">Exectution du programme</h3>
+<pre class=" language-py"><code class="prism  language-py"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> thenumbers_decrypt<span class="token punctuation">(</span><span class="token string">"16 9 3 15 3 20 6 { 20 8 5 14 21 13 2 5 18 19 13 1 19 15 14 }"</span><span class="token punctuation">)</span>
+picoctf<span class="token punctuation">{</span>thenumbersmason<span class="token punctuation">}</span>
+<span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span>
+</code></pre>
+<hr>
+<p>Flag : <code>picoctf{thenumbersmason}</code></p>
+<p>Auteur : <code>ℜ𝔬𝔪#8216</code></p>
+</div>
+</body>
+
+</html>
