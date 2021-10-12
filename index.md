@@ -13,3 +13,5 @@
 > 11/10/2021 - [The Numbers WriteUp](https://rlvx.github.io/docs/TheNumbersWU.html)
 >
 > 11/10/2021 - [No Padding No Problem WriteUp](https://rlvx.github.io/docs/NoPaddingNoProblemWU.html)
+>
+> 12/10/2021 - [XtraORdinary WriteUp](https://rlvx.github.io/docs/XtraORdinaryWU.html)
