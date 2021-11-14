@@ -16,7 +16,7 @@
 >
 > 12/10/2021 - [XtraORdinary WriteUp](https://rlvx.github.io/docs/XtraORdinaryWU.html)
 
-### Rme - Steganography
+### RMe - Steganography
 
 >14/11/2021 - [Pas Très Carré](https://rlvx.github.io/docs/Pas_Tres_Carre.html)
 >
