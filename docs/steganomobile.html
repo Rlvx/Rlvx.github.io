@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Steganomobile</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="steganomobile">Steganomobile</h1>
+<p><strong>Enoncé</strong></p>
+<blockquote>
+<p>Après avoir extrait les données d’un téléphone mobile retrouvé sur les lieux d’un crime, les enquêteurs ont récupéré cette suite de chiffres… Peut-être un numéro de téléphone ?<br>
+N° : 222-33-555-555-7-44-666-66-33</p>
+</blockquote>
+<p><strong>Explication</strong><br>
+La piste permettant de démarrer ce challenge est dans le titre !</p>
+<p>Nous savons que cette suite de chiffres est un message caché en rapport avec un téléphone.<br>
+Chaque nombre est séparé par un caractère  <strong>-</strong>, pouvant faire penser à un temps d’arrêt entre différentes touches.</p>
+<p>En se renseignant sur les différentes méthodes pour dissimuler un message avec un mobile (n’oublions par que le challenge date de 2011), on en remarque deux qui attirent notre attention :<br>
+<strong>Le code T9</strong>  et  <strong>le code Multi-Tap</strong></p>
+<p>Le  <strong>T9</strong>  remplace une lettre par le code de la touche correspondante, sur un clavier de téléphone portable. (Ex : ROOT —&gt; 7-6-6-8)<br>
+Le  <strong>Multi-Tap</strong>  quant-à lui remplace une lettre par un chiffre  <strong>répété</strong>  en fonction du code de la touche correspondante sur le pavé numérique du téléphone portable. (Ex : ROOT —&gt; 777-666-666-8)</p>
+<blockquote>
+<p>Chaque répétition correspond à une pression sur la touche pour obtenir la lettre voulue.</p>
+</blockquote>
+<p>On en déduit que notre code est un Multi-Tap !</p>
+<p><strong>Solution</strong><br>
+Nous pouvons utiliser notre site favori :  <a href="https://www.dcode.fr/code-multitap-abc">https://www.dcode.fr/code-multitap-abc</a></p>
+<pre><code>					Skealls#3418
+</code></pre>
+</div>
+</body>
+
+</html>
