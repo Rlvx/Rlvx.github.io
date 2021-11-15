@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pfs</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h1 id="pfs">pfs</h1>
+<p><strong>Enoncé</strong><br>
+Il faut comprendre en profondeur la signification de ce célèbre poème pour valider ce challenge.</p>
+<blockquote>
+<p>The Charge of the Light Brigade    	 	  	<br>
+Lord Alfred Tennyson<br>
+1854 	      			 	<br>
+Half a league, half a league,	<br>
+Half a league onward,</p>
+</blockquote>
+<p><strong>Explication</strong><br>
+On le verra assez vite (et merci au créateur du challenge pour l’indice dans le titre, qui a été pour moi immédiatement parlant), les espaces et tabulations du texte sont importants (et les sauts de ligne, histoire de bien faire un langage ésotérique ternaire).</p>
+<blockquote>
+<p>Les espaces entre les caractères sont eux à négliger (j’ai mis un peu de temps à le comprendre)</p>
+</blockquote>
+<p><strong>Solution</strong><br>
+<strong>1- One-liner</strong><br>
+On supprime, dans l’ordre : la ponctuation / les espaces entre chaque caractères (il faut faire cette étape par deux fois via le sed pour bien tout nettoyer) / les caractères alphanumériques.</p>
+<p><code>$ cat ch19.txt | tr -d [:punct:] |sed "s/[[:alnum:]] [[:alnum:]]//g" |sed "s/[[:alnum:]] [[:alnum:]]//g"| tr -d [:alnum:] &gt; ch19.ws</code></p>
+<blockquote></blockquote>
+<p><strong>2- Interpréteur</strong><br>
+Une fois ceci fait, on installe un petit module python qui va bien :</p>
+<pre><code>$ pip3 install whitespace
+</code></pre>
+<p><strong>3- Résolution</strong></p>
+<pre><code>$ whitespace ch19.ws
+</code></pre>
+</div>
+</body>
+
+</html>
