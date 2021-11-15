@@ -22,4 +22,4 @@
 >
 >14/11/2021 - [Point à la ligne](https://rlvx.github.io/docs/point_a_la_ligne.html)
 >
->14/11/2021 - [Steganomobile](https://rlvx.github.io/docs/steganomobile.html)
+>14/11/2021 - [SMobile](https://rlvx.github.io/docs/steganomobile.html)
