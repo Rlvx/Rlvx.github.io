@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TheBlackSide - [RSA - Break this]</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><h3 id="goal-of-the-challenge-">Goal of the challenge :</h3>
+<pre><code> Voici le flag chiffré et la clé publique. Bonne chance! 
+</code></pre>
+<h3 id="files-of-the-challenge--">Files of the challenge  :</h3>
+<blockquote>
+<p>&gt; <a href="http://tbsctf.fr/cryptographie/break-this.zip">key.pub</a><br>
+&gt; <a href="http://tbsctf.fr/cryptographie/break-this.zip">flag.enc</a></p>
+<p>files are in the zip</p>
+</blockquote>
+<h3 id="resolution">Resolution</h3>
+<p>First We need to get RSA key informations such as <code>n,e</code> and maybe <code>d,p,q</code> if the key file is a private key files. To do this i will use a simple function using <code>pycryptodome</code> librarie.</p>
+<pre class=" language-py"><code class="prism  language-py"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>PublicKey <span class="token keyword">import</span> RSA <span class="token keyword">as</span> CryptoRSA
+
+<span class="token keyword">def</span> <span class="token function">pem_analyser</span><span class="token punctuation">(</span>file_path<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    key <span class="token operator">=</span> CryptoRSA<span class="token punctuation">.</span>import_key<span class="token punctuation">(</span><span class="token builtin">open</span><span class="token punctuation">(</span>file_path<span class="token punctuation">)</span><span class="token punctuation">.</span>read<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> key<span class="token punctuation">.</span>has_private<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"RSA private exponent : {key.d}"</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"RSA private first factor : {key.p}"</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"RSA private second factor : {key.q}"</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"RSA public exponent : {key.e}"</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"RSA modulus : {key.n}"</span><span class="token punctuation">)</span>
+    <span class="token keyword">else</span><span class="token punctuation">:</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"RSA public exponent : {key.e}"</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span>f<span class="token string">"RSA modulus : {key.n}"</span><span class="token punctuation">)</span>
+    <span class="token builtin">file</span><span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Resutl :</p>
+<pre class=" language-py"><code class="prism  language-py"><span class="token operator">&gt;&gt;</span><span class="token operator">&gt;</span> pem_analyser<span class="token punctuation">(</span><span class="token string">"/home/rom/Desktop/key.pub"</span><span class="token punctuation">)</span>
+RSA public exponent <span class="token punctuation">:</span> <span class="token number">65537</span>
+RSA modulus <span class="token punctuation">:</span> <span class="token number">27204245629622396543388982831505319280553537867742496038288888283403568541540820647587420685029889246305816670411756729445023914616935768500058598047919877428844737151567917820626951119307192195584816507876759759109209939264016605745276931856703396395491719091964748744551627314643741628808233666901196579669513164824709965247082384054171712855165635025220530901787275717277370448064253194293548664037006966853184618386863284355343617944614239214850836406013346322848011979955686380737296120909764716738502361884320574854075552714778048143832141423915719189410241259307138537831972814689930517333785210381286698767973</span>
+</code></pre>
+<p>Now using Factordb we are going to find p,q and calculate d :</p>
+<pre class=" language-py"><code class="prism  language-py"><span class="token keyword">from</span> factordb<span class="token punctuation">.</span>factordb <span class="token keyword">import</span> FactorDB
+
+e <span class="token operator">=</span> <span class="token number">65537</span>
+n <span class="token operator">=</span> <span class="token number">27204245629622396543388982831505319280553537867742496038288888283403568541540820647587420685029889246305816670411756729445023914616935768500058598047919877428844737151567917820626951119307192195584816507876759759109209939264016605745276931856703396395491719091964748744551627314643741628808233666901196579669513164824709965247082384054171712855165635025220530901787275717277370448064253194293548664037006966853184618386863284355343617944614239214850836406013346322848011979955686380737296120909764716738502361884320574854075552714778048143832141423915719189410241259307138537831972814689930517333785210381286698767973</span>
+
+f <span class="token operator">=</span> FactorDB<span class="token punctuation">(</span>n<span class="token punctuation">)</span>
+f<span class="token punctuation">.</span>connect<span class="token punctuation">(</span><span class="token punctuation">)</span>
+factors <span class="token operator">=</span> f<span class="token punctuation">.</span>get_factor_list<span class="token punctuation">(</span><span class="token punctuation">)</span>
+p <span class="token operator">=</span> factors<span class="token punctuation">[</span><span class="token number">0</span><span class="token punctuation">]</span>
+q <span class="token operator">=</span> factors<span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">]</span>
+phi <span class="token operator">=</span> <span class="token punctuation">(</span>p<span class="token operator">-</span><span class="token builtin">int</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token operator">*</span><span class="token punctuation">(</span>q<span class="token operator">-</span><span class="token builtin">int</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+d<span class="token operator">=</span>inverse_mod<span class="token punctuation">(</span>e<span class="token punctuation">,</span>phi<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"p = "</span><span class="token punctuation">,</span>p<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"q = "</span><span class="token punctuation">,</span>q<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"d = "</span><span class="token punctuation">,</span>d<span class="token punctuation">)</span>
+</code></pre>
+<p>Result:</p>
+<pre class=" language-py"><code class="prism  language-py">p <span class="token operator">=</span>  <span class="token number">158045440487012717417969337991833062220171848229349294970099535770686385685191197021404646988505107546613583569812084736766880856915023472864007834253330240325718098559958553587497955125883815569682011405582590061106959913940464452667269561758929945473177225085298654149288077966241747234009025922074388183149</span>
+q <span class="token operator">=</span>  <span class="token number">172129265771877094794176038499024911253423273193317711264413713291861649932778079213880349965422659363799089190512638726277431301508490273115897579620000831863771476374795117917605138597770188990465204829954147194026132057852371323738365861267114387681039847206683698790711445064324100229432778741246743759577</span>
+d <span class="token operator">=</span>  <span class="token number">14305505548524904284218296768576038243522232869005441826259211695850240057480832231835532280516121779993551122456022890380454692302721476262531386308886014554072908074133468908437472213019878307466614756716919779333516977232033878325212916407183257548832432291169585668911954043434506732893146724177425541680868110967120548891647970391518002071925061739240212146305672413172519718634302495812166268805165913417271916049367508797035429990837099223853684098785744626446811078386810564387583629032682812362522748744892768896537132071738092586151634592804993584862770062058124839402659193287100181847531086123231874048225</span>
+</code></pre>
+<p>We can’t decrypt ciphertext yet because the challenge use PKCS key. So we need to create one using private key paramters we just find :</p>
+<pre class=" language-py"><code class="prism  language-py"><span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>PublicKey <span class="token keyword">import</span> RSA
+<span class="token keyword">from</span> Crypto<span class="token punctuation">.</span>Cipher <span class="token keyword">import</span> PKCS1_OAEP
+
+file_in <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span><span class="token string">"/home/rom/Desktop/flag.enc"</span><span class="token punctuation">,</span> <span class="token string">"rb"</span><span class="token punctuation">)</span>
+
+n <span class="token operator">=</span> <span class="token number">27204245629622396543388982831505319280553537867742496038288888283403568541540820647587420685029889246305816670411756729445023914616935768500058598047919877428844737151567917820626951119307192195584816507876759759109209939264016605745276931856703396395491719091964748744551627314643741628808233666901196579669513164824709965247082384054171712855165635025220530901787275717277370448064253194293548664037006966853184618386863284355343617944614239214850836406013346322848011979955686380737296120909764716738502361884320574854075552714778048143832141423915719189410241259307138537831972814689930517333785210381286698767973</span>
+e <span class="token operator">=</span> <span class="token number">65537</span>
+d <span class="token operator">=</span> <span class="token number">14305505548524904284218296768576038243522232869005441826259211695850240057480832231835532280516121779993551122456022890380454692302721476262531386308886014554072908074133468908437472213019878307466614756716919779333516977232033878325212916407183257548832432291169585668911954043434506732893146724177425541680868110967120548891647970391518002071925061739240212146305672413172519718634302495812166268805165913417271916049367508797035429990837099223853684098785744626446811078386810564387583629032682812362522748744892768896537132071738092586151634592804993584862770062058124839402659193287100181847531086123231874048225</span>
+
+private_key <span class="token operator">=</span> RSA<span class="token punctuation">.</span>construct<span class="token punctuation">(</span><span class="token punctuation">(</span>n<span class="token punctuation">,</span>e<span class="token punctuation">,</span>d<span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+encrypted_flag<span class="token operator">=</span>file_in<span class="token punctuation">.</span>readline<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+<span class="token comment"># Create PKCS cypher</span>
+cipher_rsa <span class="token operator">=</span> PKCS1_OAEP<span class="token punctuation">.</span>new<span class="token punctuation">(</span>private_key<span class="token punctuation">)</span>
+<span class="token comment"># Decrypt </span>
+flag<span class="token operator">=</span> cipher_rsa<span class="token punctuation">.</span>decrypt<span class="token punctuation">(</span>encrypted_flag<span class="token punctuation">)</span>
+
+<span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string">"Flag :"</span><span class="token punctuation">,</span>flag<span class="token punctuation">)</span>
+</code></pre>
+<p>Result :</p>
+<p><code>Flag : b'TBS{Fa4ct0r1z4ti0n_t0_br3ak_k3ys}\n'</code></p>
+<hr>
+<p>Author : <code>ℜ𝔬𝔪#8216</code></p>
+</div>
+</body>
+
+</html>
